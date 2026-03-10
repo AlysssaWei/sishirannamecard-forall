@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">四时然 | The Natural Flow - 电子名片</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- 引入配置文件 -->
+    <script src="config.js"></script>
+    <style>
+        /* 样式保持不变，省略以节省空间... */
+        :root {
+            --spring: #8B9A7C;
+            --summer: #D4A574;
+            --autumn: #B5835A;
+            --winter: #7A8B8C;
+            --paper: #F7F5F0;
+            --ink: #2C2C2C;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: var(--paper);
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+        }
+        
+        .seasonal-bg {
+            background: linear-gradient(135deg, 
+                var(--spring) 0%, 
+                var(--summer) 33%, 
+                var(--autumn) 66%, 
+                var(--winter) 100%);
+            background-size: 400% 400%;
+            animation: seasonFlow 20s ease infinite;
+        }
+        
+        @keyframes seasonFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .paper-texture {
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.02) 3px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.02) 3px);
+        }
+        
+        .ink-blot {
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: inkSpread 8s ease-in-out infinite;
+        }
+        
+        @keyframes inkSpread {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.15; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 0.1; }
+        }
+        
+        .solar-orbit {
+            animation: orbit 60s linear infinite;
+        }
+        
+        @keyframes orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .orbit-item {
+            animation: counterOrbit 60s linear infinite;
+        }
+        
+        @keyframes counterOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+        
+        .breath {
+            animation: breathe 4s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        .ripple-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-hover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .ripple-hover:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 paper-texture">
+
+    <!-- 主容器 -->
+    <div class="relative w-full max-w-md mx-auto">
+        
+        <!-- 背景装饰：四季墨迹 -->
+        <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-green-800 ink-blot"></div>
+        <div class="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-amber-700 ink-blot" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-stone-600 ink-blot" style="animation-delay: 4s;"></div>
+
+        <!-- 名片主体 -->
+        <div class="relative glass rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl hover:-translate-y-1">
+            
+            <!-- 顶部：季节流动条 -->
+            <div class="h-2 seasonal-bg w-full"></div>
+            
+            <!-- 头部区域 -->
+            <div class="relative p-8 pb-6">
+                <!-- 节气轨道装饰 -->
+                <div class="absolute top-4 right-4 w-24 h-24 solar-orbit opacity-20">
+                    <div class="orbit-item absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-stone-600 rounded-full"></div>
+                    <div class="orbit-item absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-stone-400 rounded-full"></div>
+                    <div class="orbit-item absolute top-1/2 right-0 transform -translate-y-1/2 w-1 h-1 bg-stone-500 rounded-full"></div>
+                </div>
+
+                <!-- Logo区域 -->
+                <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-stone-800 tracking-widest font-display mb-1" id="brandName">四时然</h1>
+                        <p class="text-xs text-stone-500 tracking-[0.3em] uppercase font-display" id="brandNameEn">The Natural Flow</p>
+                    </div>
+                    <div class="vertical-text text-stone-400 text-xs tracking-widest h-16 opacity-60" id="brandSlogan">
+                        顺应生季
+                    </div>
+                </div>
+
+                <!-- 个人信息 -->
+                <div class="space-y-1 mb-6">
+                    <h2 class="text-xl font-semibold text-stone-800" id="userName">姓名</h2>
+                    <p class="text-sm text-stone-600 font-display italic" id="userTitle">职位</p>
+                    <p class="text-xs text-stone-400 mt-2 tracking-wider" id="userTitleEn">英文职位</p>
+                </div>
+
+                <!-- 节律状态指示器 -->
+                <div class="flex items-center space-x-3 mb-6 p-3 bg-white/50 rounded-xl border border-stone-200/50">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-xs font-bold shadow-lg breath" id="seasonIndicator">
+                        季
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-stone-500 mb-0.5">当前节律状态</p>
+                        <p class="text-sm font-medium text-stone-700" id="seasonStatus">状态</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-stone-400" id="solarTerm">节气</p>
+                        <p class="text-[10px] text-stone-300" id="dateDisplay">农历</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中部：联系信息 -->
+            <div class="px-8 space-y-4">
+                <!-- 电话 -->
+                <a href="#" id="phoneLink" class="group flex items-center space-x-4 p-3 rounded-xl hover:bg-white/60 transition-colors duration-300 ripple-hover">
+                    <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 group-hover:bg-green-50 group-hover:text-green-700 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-stone-400 mb-0.5">电话</p>
+                        <p class="text-sm text-stone-700 font-medium" id="phoneDisplay">电话</p>
+                    </div>
+                </a>
+
+                <!-- 邮箱 -->
+                <a href="#" id="emailLink" class="group flex items-center space-x-4 p-3 rounded-xl hover:bg-white/60 transition-colors duration-300 ripple-hover">
+                    <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 group-hover:bg-amber-50 group-hover:text-amber-700 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-stone-400 mb-0.5">邮箱</p>
+                        <p class="text-sm text-stone-700 font-medium" id="emailDisplay">邮箱</p>
+                    </div>
+                </a>
+
+                <!-- 地址 -->
+                <div class="group flex items-center space-x-4 p-3 rounded-xl hover:bg-white/60 transition-colors duration-300">
+                    <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 group-hover:bg-stone-200 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-stone-400 mb-0.5">四时体验站</p>
+                        <p class="text-sm text-stone-700 font-medium" id="locationDisplay">地址</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部：操作区 -->
+            <div class="p-8 pt-6">
+                <!-- 快速操作 -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button onclick="saveContact()" class="flex items-center justify-center space-x-2 py-3 px-4 bg-stone-800 text-stone-50 rounded-xl hover:bg-stone-700 transition-colors duration-300 text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        <span>保存联系人</span>
+                    </button>
+                    <button onclick="shareCard()" class="flex items-center justify-center space-x-2 py-3 px-4 bg-white text-stone-700 border border-stone-300 rounded-xl hover:bg-stone-50 transition-colors duration-300 text-sm font-medium">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                        <span>分享名片</span>
+                    </button>
+                </div>
+
+                <!-- 品牌标语 -->
+                <div class="text-center space-y-2">
+                    <p class="text-xs text-stone-400 tracking-[0.2em] font-display" id="sloganEn">Live with the Season, Grow with Nature</p>
+                    <div class="flex justify-center space-x-4 text-[10px] text-stone-300">
+                        <span>春醒</span>
+                        <span>·</span>
+                        <span>夏长</span>
+                        <span>·</span>
+                        <span>秋收</span>
+                        <span>·</span>
+                        <span>冬藏</span>
+                    </div>
+                </div>
+
+                <!-- 二维码区域（可展开） -->
+                <div class="mt-6 pt-6 border-t border-stone-200/50">
+                    <button onclick="toggleQR()" class="w-full flex items-center justify-between text-xs text-stone-500 hover:text-stone-700 transition-colors">
+                        <span>查看公众号 / 小程序</span>
+                        <svg id="qrArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="qrCode" class="hidden mt-4 flex justify-center">
+                        <div class="w-32 h-32 bg-stone-100 rounded-xl flex items-center justify-center border-2 border-dashed border-stone-300">
+                            <div class="text-center">
+                                <svg class="w-8 h-8 mx-auto text-stone-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                                <span class="text-[10px] text-stone-400">扫码关注</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部装饰线 -->
+            <div class="h-1 w-full bg-gradient-to-r from-green-400 via-amber-400 to-stone-400 opacity-50"></div>
+        </div>
+
+        <!-- 悬浮提示 -->
+        <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-stone-800 text-white px-6 py-3 rounded-full text-sm opacity-0 transition-opacity duration-300 pointer-events-none shadow-lg z-50">
+            已复制到剪贴板
+        </div>
+    </div>
+
+    <script>
+        // 初始化 - 从配置文件读取数据
+        function initConfig() {
+            // 页面标题
+            document.title = `${CONFIG.brand.name} | ${CONFIG.profile.name} - 电子名片`;
+            
+            // 品牌信息
+            document.getElementById('brandName').textContent = CONFIG.brand.name;
+            document.getElementById('brandNameEn').textContent = CONFIG.brand.nameEn;
+            document.getElementById('brandSlogan').textContent = CONFIG.brand.slogan;
+            document.getElementById('sloganEn').textContent = CONFIG.brand.sloganEn;
+            
+            // 个人信息
+            document.getElementById('userName').textContent = CONFIG.profile.name;
+            document.getElementById('userTitle').textContent = CONFIG.profile.title;
+            document.getElementById('userTitleEn').textContent = CONFIG.profile.titleEn;
+            
+            // 联系方式
+            document.getElementById('phoneLink').href = `tel:${CONFIG.contact.phone}`;
+            document.getElementById('phoneDisplay').textContent = CONFIG.contact.phoneDisplay;
+            document.getElementById('emailLink').href = `mailto:${CONFIG.contact.email}`;
+            document.getElementById('emailDisplay').textContent = CONFIG.contact.email;
+            document.getElementById('locationDisplay').textContent = CONFIG.contact.location;
+            
+            // 节律状态
+            const indicator = document.getElementById('seasonIndicator');
+            indicator.textContent = CONFIG.rhythm.season;
+            indicator.className = `w-10 h-10 rounded-full bg-gradient-to-br ${CONFIG.rhythm.seasonColor} flex items-center justify-center text-white text-xs font-bold shadow-lg breath`;
+            document.getElementById('seasonStatus').textContent = CONFIG.rhythm.status;
+            document.getElementById('solarTerm').textContent = CONFIG.rhythm.solarTerm;
+            document.getElementById('dateDisplay').textContent = CONFIG.rhythm.lunarDate;
+        }
+
+        // 保存联系人
+        function saveContact() {
+            const vCard = `BEGIN:VCARD
+VERSION:3.0
+FN:${CONFIG.profile.name}
+ORG:${CONFIG.brand.name};${CONFIG.brand.nameEn}
+TITLE:${CONFIG.profile.title}
+TEL;TYPE=CELL:${CONFIG.contact.phone}
+EMAIL:${CONFIG.contact.email}
+ADR;TYPE=WORK:;;${CONFIG.address.full};${CONFIG.address.city};${CONFIG.address.province};;中国
+URL:${CONFIG.website}
+NOTE:${CONFIG.brand.slogan} | ${CONFIG.brand.sloganEn}
+END:VCARD`;
+            
+            const blob = new Blob([vCard], { type: 'text/vcard' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${CONFIG.brand.name}_${CONFIG.profile.name}.vcf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showToast('联系人已保存');
+        }
+
+        // 分享名片
+        function shareCard() {
+            if (navigator.share) {
+                navigator.share({
+                    title: `${CONFIG.brand.name} | ${CONFIG.profile.name}`,
+                    text: `${CONFIG.brand.slogan} - ${CONFIG.profile.title}电子名片`,
+                    url: window.location.href
+                }).catch(err => console.log('分享失败', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showToast('链接已复制，快去分享吧');
+                });
+            }
+        }
+
+        // 切换二维码显示
+        function toggleQR() {
+            const qrCode = document.getElementById('qrCode');
+            const arrow = document.getElementById('qrArrow');
+            
+            if (qrCode.classList.contains('hidden')) {
+                qrCode.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                qrCode.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        // 显示提示
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', initConfig);
+    </script>
+</body>
+</html>
